@@ -1,0 +1,67 @@
+<div id="kt_carousel_3_carousel" style="width:60%; margin:100px auto;" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="4000">
+								<!--begin::Heading-->
+								<div class="d-flex align-items-center justify-content-between flex-wrap">
+									<!--begin::Label-->
+									<span class="fs-4 fw-bold pe-2"><i class="fa-solid fa-newspaper" style="color: rgb(79, 79, 79)"></i> News Section</span>
+									<!--end::Label-->
+							
+									<!--begin::Carousel Indicators-->
+									<ol class="p-0 m-0 carousel-indicators carousel-indicators-bullet carousel-indicators-active-primary">
+										{{-- Always shown if there is news or no news --}}
+										<li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="0" class="ms-1 active"></li>
+
+										@for ($i = 1; $i < count($news); $i++)
+										<li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="{{$i}}" class="ms-1"></li>
+										@endfor
+
+										{{-- <li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="1" class="ms-1"></li>
+										<li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="2" class="ms-1"></li> --}}
+									</ol>
+									<!--end::Carousel Indicators-->
+								</div>
+								<!--end::Heading-->
+							
+								<!--begin::Carousel-->
+								<div class="carousel-inner pt-8">
+									{{-- For loop to know that which one is first news --}}
+									{{-- @for ($i = 0; $i < $newsCount; $i++) --}}
+
+									
+									{{-- only show if there is no news to display --}}
+									@if(count($news)==0)
+									
+									<div class="carousel-item active">
+									Sorry no news today!
+									</div>
+									@endif
+
+									{{-- @foreach($news as $details) --}}
+									
+									{{-- For loop to know that which one is first news --}}
+									@for ($i = 1; $i <= count($news); $i++)
+
+									<!--begin::Item-->
+									{{-- Show the active carousel for only first news or if there is no news --}}
+									@if($i==1)
+									<div class="carousel-item active">
+										<i class="fa-solid fa-lines-leaning" style="color: rgb(79, 79, 79)"></i> {{$news[$i-1]['news_name']}} <br> <br>
+										<i class="fa-solid fa-book-open" style="color: rgb(79, 79, 79)"></i> {{$news[$i-1]['news_desc']}}
+									</div>
+									<!--end::Item-->
+									@else
+									<!--begin::Item-->
+									<div class="carousel-item">
+										<i class="fa-solid fa-lines-leaning" style="color: rgb(79, 79, 79)"></i> {{$news[$i-1]['news_name']}} <br> <br>
+										<i class="fa-solid fa-book-open" style="color: rgb(79, 79, 79)"></i> {{$news[$i-1]['news_desc']}}
+									</div>
+									<!--end::Item-->
+									@endif
+
+									{{-- @endforeach --}}
+
+									@endfor
+
+Chatgpt: 22/3/2023
+									The issue with the code you provided is that there is a missing closing tag for the <div> element with id kt_carousel_3_carousel. As a result, the JavaScript code that initializes the carousel (new bootstrap.Carousel()) cannot find the carousel element, and it throws an error.
+
+To fix the issue, you need to add a closing tag for the <div> element with id kt_carousel_3_carousel.

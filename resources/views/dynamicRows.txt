@@ -1,0 +1,63 @@
+// Add a new row
+// function insertRowFamilyTable() {
+
+                //     // Get the table element in which you want to add row
+                //     let table = document.getElementById("table-family");
+
+                //     // Create a row using the inserRow() method and
+                //     // specify the index where you want to add the row
+                //     let row = table.insertRow(-1); // We are adding at the end
+
+                //     // Create table cells
+                //     let c1 = row.insertCell(0);
+                //     let c2 = row.insertCell(1);
+                //     let c3 = row.insertCell(2);
+                //     let c4 = row.insertCell(3);
+                //     let c5 = row.insertCell(4);
+
+                //     // Add data to c1, c3, c3, c4, c5
+                //     c1.innerHTML = `<td>
+                //                         <div class="form-group mb-10">
+                //                         <input type="text" class="form-control"
+                //                         wire:model="applicant_family_members.{{ $index }}.name"
+                //                         id="applicant_family_members_name" />
+                //                         <span class="text-danger">@error('applicant_family_members.{{ $index }}.name'){{ $message }}@enderror</span>
+                //                         </div>
+                //                     </td>`;
+
+                //     c2.innerHTML = `
+                //                                     <div class="form-group mb-10">
+                //                                         <input type="text" class="form-control"
+                //                                         wire:model="applicant_family_members.{{ $index }}.relation"
+                //                                         id="applicant_family_members_relation" />
+                //                                         <span class="text-danger">@error('applicant_family_members.{{ $index }}.relation'){{ $message }}@enderror</span>
+                //                                     </div>
+                //             `;
+
+                //     c3.innerHTML = `
+                //                                     <div class="form-group mb-10">
+                //                                         <select wire:model="applicant_family_members.{{$index}}.status"
+                //                                         id="applicant_family_members_martial_status" class="form-control"
+                //                                             required>
+                //                                             <option value="">Select marital status</option>
+                //                                             <option value="Single">Single</option>
+                //                                             <option value="Married">Married</option>
+                //                                         </select>
+                //                                         <span class="text-danger">@error('applicant_family_members.{{$index}}.status'){{ $message }}@enderror</span>
+                //                                     </div>
+                //             `;
+
+                //     c4.innerHTML = `
+                //                 <div class="form-group mb-10">
+                //                     <input type="text" class="form-control"
+                //                     wire:model="applicant_family_members_remarks"
+                //                     id="applicant_family_members_remarks" />
+                //                 </div>
+                //                 <span class="text-danger">@error('applicant_family_members_remarks'){{ $message }}@enderror</span>
+                //             `;
+
+                //     c5.innerHTML = `
+                //                 <a style="width: 40px;" href="#!" title="Remove" class="btn btn-sm btn-danger delete" wire:model="removeFamilyMember({{ $index }})" onclick="deleteRowFamilyTable();"><i class="fa fa-close"></i></a>
+                //             `;
+
+                // };
