@@ -40,49 +40,50 @@ class HomeController extends Controller
 
         $subscribed = NULL;
 
-        // if user is login
+        // if user is logged in
         if(Auth::check()){
-                    // check if user has already subscribed or not in a month
 
-                $userId = Auth::user()->id;
+            // check if user has already subscribed or not in a month
 
-                // echo $userId;
+            $userId = Auth::user()->id;
 
-                $subscriptionDate = Subscription::where('subscription_user_id', $userId)->get('created_at');
+            // echo $userId;
 
-                $datediff = NULL;
+            $subscriptionDate = Subscription::where('subscription_user_id', $userId)->get('created_at');
 
-                $date = NULL;
+            $datediff = NULL;
 
-                $rounded = NULL;
+            $date = NULL;
 
-                // var_dump($subscriptionDate);
+            $rounded = NULL;
 
-                foreach($subscriptionDate as $data){
-                    $date = $data->created_at;
+            // var_dump($subscriptionDate);
+
+            foreach($subscriptionDate as $data){
+                $date = $data->created_at;
+            }
+
+
+            if($date!=NULL){
+
+                $now = time(); // or your date as well
+                // echo $now;
+                $your_date = strtotime($date);
+                // echo $your_date;
+                $datediff = $now - $your_date;
+                
+                $rounded = round($datediff / (60 * 60 * 24));
+
+                // echo $rounded;
+
+                // if subscription days are more than 30 (means subscription is old) or no subscription is purchased --> means user has not subscribed
+                if($rounded>30 || $date==NULL){
+                    $subscribed = false;
                 }
-
-
-                if($date!=NULL){
-
-                    $now = time(); // or your date as well
-                    // echo $now;
-                    $your_date = strtotime($date);
-                    // echo $your_date;
-                    $datediff = $now - $your_date;
-                    
-                    $rounded = round($datediff / (60 * 60 * 24));
-
-                    // echo $rounded;
-
-                    // if subscription days are more than 30 (means subscription is old) or no subscription is purchased --> means user has not subscribed
-                    if($rounded>30 || $date==NULL){
-                        $subscribed = false;
-                    }
-                    else{
-                        $subscribed = true;
-                    }
+                else{
+                    $subscribed = true;
                 }
+            }
         }
 
         // echo "hello";   

@@ -29,6 +29,8 @@ use App\Models\ApplicantWorthAsset;
 use App\Models\User;
 use App\Models\Scholarship;
 
+use Session;
+
 
 class AppliedScholarshipController extends Controller
 {
@@ -37,6 +39,12 @@ class AppliedScholarshipController extends Controller
      */
     public function index()
     {
+
+        // if session is not set
+        if(Session::get('admin')==NULL){
+            return redirect()->route('admin.login');
+        }
+
         // retrieve all the applications for the scholarships and return in the index view
 
         $applications = DB::table('applied_scholarships')
@@ -70,6 +78,12 @@ class AppliedScholarshipController extends Controller
      */
     public function show($appliedScholarshipId, $userId, $scholarshipId)
     {
+
+        // if session is not set
+        if(Session::get('admin')==NULL){
+            return redirect()->route('admin.login');
+        }
+
         //
 
         // dd($appliedScholarshipId, $userId, $scholarshipId);
@@ -222,6 +236,12 @@ class AppliedScholarshipController extends Controller
      */
     public function edit($appliedScholarshipId)
     {
+
+        // if session is not set
+        if(Session::get('admin')==NULL){
+            return redirect()->route('admin.login');
+        }
+
         // get the scholarship status
         $applicationStatus = AppliedScholarship::where('applied_scholarships_id', $appliedScholarshipId)->get('applied_scholarships_status');
 
@@ -238,6 +258,11 @@ class AppliedScholarshipController extends Controller
      */
     public function update(Request $request, $appliedScholarshipId)
     {
+
+        // if session is not set
+        if(Session::get('admin')==NULL){
+            return redirect()->route('admin.login');
+        }
 
         // update the application status
 
@@ -256,6 +281,11 @@ class AppliedScholarshipController extends Controller
      */
     public function destroy($appliedScholarshipId, $userId, $scholarshipId)
     {
+        // if session is not set
+        if(Session::get('admin')==NULL){
+            return redirect()->route('admin.login');
+        }
+
         //
 
         // using the user and scholarship id for the applied scholarship from the applied scholarship table we will delete the individual application record from the tables
@@ -347,7 +377,5 @@ class AppliedScholarshipController extends Controller
         // show all applications updated table
         return redirect()->route('applications.index');
     }
-
-    
 
 }

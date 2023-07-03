@@ -99,7 +99,7 @@ License: For each use you must have a valid license purchased only from above li
 <!-- Mirrored from preview.keenthemes.com/metronic8/demo1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Oct 2022 11:08:14 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-		<title>SMS - @yield('title')</title>
+		<title>ScholarApplica - @yield('title')</title>
 		<meta charset="utf-8" />
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Flask & Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Flask & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
@@ -171,7 +171,7 @@ License: For each use you must have a valid license purchased only from above li
 						<!--begin::Mobile logo-->
 						<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
 							<a href="{{route('admin.home')}}" class="d-lg-none">
-								<img alt="Logo" src="{{asset('Eziline/Scholarship Management System/public/logo.png')}}" class="h-30px" />
+								<img alt="Logo" src="{{asset('Eziline/Scholarship Management System/public/logo.png')}}" class="h-60px" />
 							</a>
 						</div>
 						<!--end::Mobile logo-->
@@ -2009,7 +2009,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     </div>
                                                     <!--end:Menu item-->
                                                     <!--begin:Menu item-->
-                                                    <div class="menu-item">
+                                                    {{-- <div class="menu-item">
                                                         <!--begin:Menu link-->
                                                         <a class="menu-link" href="#">
                                                             <span class="menu-bullet">
@@ -2019,7 +2019,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         </a>
                                                         <!--end:Menu link-->
                                                     
-                                                    </div>
+                                                    </div> --}}
                                                     <!--end:Menu item-->
                                                 </div>
                                                 <!--end:Menu sub-->
@@ -2045,11 +2045,11 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link" href="#">
+                                                        <a class="menu-link" href="{{route('subscriptions.index')}}">
                                                             <span class="menu-bullet">
                                                                 <span class="bullet bullet-dot"></span>
                                                             </span>
-                                                            <span class="menu-title">All Subscribed Users</span>
+                                                            <span class="menu-title">All Subscriptions</span>
                                                         </a>
                                                         <!--end:Menu link-->
                                                     
@@ -2079,7 +2079,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--begin:Menu item-->
                                                     <div class="menu-item">
                                                         <!--begin:Menu link-->
-                                                        <a class="menu-link" href="#">
+                                                        <a class="menu-link" href="{{route('users.index')}}">
                                                             <span class="menu-bullet">
                                                                 <span class="bullet bullet-dot"></span>
                                                             </span>
@@ -2123,9 +2123,42 @@ License: For each use you must have a valid license purchased only from above li
                                         {{-- </div>
                                     </div> --}}
                             
-
-                                    @yield('content')
                                     
+                                    @yield('content')
+
+                                    
+                                    <!--begin::Footer-->
+                                            <div id="kt_app_footer" class="app-footer">
+                                                <!--begin::Footer container-->
+                                                <div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
+                                                    <!--begin::Copyright-->
+                                                    <div class="text-dark order-2 order-md-1">
+                                                        <span class="text-muted fw-semibold me-1">2023 &copy;</span>
+                                                        <a href="{{route('admin.home')}}" target="_blank" class="text-gray-800 text-hover-primary">ScholarApplica</a>
+                                                    </div>
+                                                    <!--end::Copyright-->
+                                                    <!--begin::Menu-->
+                                                    <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
+                                                        {{-- <li class="menu-item">
+                                                            <a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">About</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="https://devs.keenthemes.com/" target="_blank" class="menu-link px-2">Support</a>
+                                                        </li>
+                                                        <li class="menu-item">
+                                                            <a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
+                                                        </li> --}}
+                                                        <li class="menu-item fw-bold fs-12">
+                                                            <a href="https://github.com/shahmir-ahmed" target="_blank" class="menu-link px-2" style="color: orange"> <span style="color:black!important">𝙷𝚊𝚗𝚍 𝙲𝚛𝚊𝚏𝚝𝚎𝚍 & 𝙼𝚊𝚍𝚎 𝚆𝚒𝚝𝚑 ❤️ 𝚋𝚢 &nbsp;</span> 𝚂𝚑𝚊𝚑𝚖𝚒𝚛 𝙰𝚑𝚖𝚎𝚍</a>
+                                                        </li>
+                                                    </ul>
+                                                    <!--end::Menu-->
+                                                </div>
+                                                <!--end::Footer container-->
+                                            </div>
+                                            <!--end::Footer-->
+                                        </div>
+                                        <!--end:::Main-->
 
                                     </div>
                                     <!--end::Wrapper-->
@@ -2134,40 +2167,40 @@ License: For each use you must have a valid license purchased only from above li
                             </div>
                             <!--end::App-->
 
-        <!--begin::Javascript-->
-		<script>var hostUrl = "assets/index.html";</script>
-		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
-		<script src="{{asset('Eziline/Scholarship Management System/public/plugins/global/plugins.bundle.js')}}"></script>
-		<script src="{{asset('Eziline/Scholarship Management System/public/js/scripts.bundle.js')}}"></script>
-		<!--end::Global Javascript Bundle-->
-		<!--begin::Vendors Javascript(used for this page only)-->
-		<script src="{{asset('Eziline/Scholarship Management System/public/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
-		<script src="http://cdn.amcharts.com/lib/5/index.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/xy.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/percent.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/radar.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/map.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
-		<script src="http://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
-		<script src="{{asset('Eziline/Scholarship Management System/public/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-		<!--end::Vendors Javascript-->
-		<!--begin::Custom Javascript(used for this page only)-->
-		<script src="{{asset('Eziline/Scholarship Management System/public/js/widgets.bundle.js')}}"></script>
-		<script src="{{asset('Eziline/Scholarship Management System/public/js/custom/widgets.js')}}"></script>
-		<script src="{{asset('Eziline/Scholarship Management System/public/js/custom/apps/chat/chat.js')}}"></script>
-		<script src="{{asset('Eziline/Scholarship Management System/public/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
-		<script src="{{asset('Eziline/Scholarship Management System/public/js/custom/utilities/modals/create-app.js')}}"></script>
-		<script src="{{asset('Eziline/Scholarship Management System/public/js/custom/utilities/modals/new-target.js')}}"></script>
-		<script src="{{asset('Eziline/Scholarship Management System/public/js/custom/utilities/modals/users-search.js')}}"></script>
-		<!--end::Custom Javascript-->
-		<!--end::Javascript-->
+                            <!--begin::Javascript-->
+                            <script>var hostUrl = "assets/index.html";</script>
+                            <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+                            <script src="{{asset('Eziline/Scholarship Management System/public/plugins/global/plugins.bundle.js')}}"></script>
+                            <script src="{{asset('Eziline/Scholarship Management System/public/js/scripts.bundle.js')}}"></script>
+                            <!--end::Global Javascript Bundle-->
+                            <!--begin::Vendors Javascript(used for this page only)-->
+                            <script src="{{asset('Eziline/Scholarship Management System/public/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/index.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/xy.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/percent.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/radar.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/map.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
+                            <script src="http://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+                            <script src="{{asset('Eziline/Scholarship Management System/public/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+                            <!--end::Vendors Javascript-->
+                            <!--begin::Custom Javascript(used for this page only)-->
+                            <script src="{{asset('Eziline/Scholarship Management System/public/js/widgets.bundle.js')}}"></script>
+                            <script src="{{asset('Eziline/Scholarship Management System/public/js/custom/widgets.js')}}"></script>
+                            <script src="{{asset('Eziline/Scholarship Management System/public/js/custom/apps/chat/chat.js')}}"></script>
+                            <script src="{{asset('Eziline/Scholarship Management System/public/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
+                            <script src="{{asset('Eziline/Scholarship Management System/public/js/custom/utilities/modals/create-app.js')}}"></script>
+                            <script src="{{asset('Eziline/Scholarship Management System/public/js/custom/utilities/modals/new-target.js')}}"></script>
+                            <script src="{{asset('Eziline/Scholarship Management System/public/js/custom/utilities/modals/users-search.js')}}"></script>
+                            <!--end::Custom Javascript-->
+                            <!--end::Javascript-->
 
-    </body>
-	<!--end::Body-->
+                        </body>
+                        <!--end::Body-->
 
-<!-- Mirrored from preview.keenthemes.com/metronic8/demo1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Oct 2022 11:09:57 GMT -->
+                        <!-- Mirrored from preview.keenthemes.com/metronic8/demo1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Oct 2022 11:09:57 GMT -->
 </html>

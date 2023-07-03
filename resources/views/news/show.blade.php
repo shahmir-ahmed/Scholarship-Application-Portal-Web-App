@@ -20,7 +20,7 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('home')}}" class="text-muted text-hover-primary">Home</a>
+                            <a href="{{route('admin.home')}}" class="text-muted text-hover-primary">Home</a>
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
@@ -49,67 +49,50 @@
             <!--end::Toolbar container-->
         </div>
         <!--end::Toolbar-->
-                <!--begin::Content-->
-                <div id="kt_app_content" class="app-content flex-column-fluid">
-                    <!--begin::Content container-->
-                    <div id="kt_app_content_container" class="app-container container-fluid">
-                        <!--begin::Heading-->
-                        <div class="mb-13 text-center">
-                            <!--begin::Title-->
-                            <h1 class="mb-3">News details</h1>
-                            <!--end::Title-->
-                        </div>
-                        <div class="mb-13">
-                            <!--begin::Description-->
-                            <div class="text-solid fw-semibold fs-5">Below are the details of the news:</div>
-                                <!--end::Description-->
-                        </div>
-                        <!--end::Heading-->
-                        
-                        <div class="mb13">
-                            @foreach($news as $details)
+        <!--begin::Content-->
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="app-container container-fluid">
+                <!--begin::Heading-->
+                <div class="mb-13 text-center">
+                    <!--begin::Title-->
+                    <h1 class="mb-3">News details</h1>
+                    <!--end::Title-->
+                </div>
+                <div class="mb-13">
+                    <!--begin::Description-->
+                    <div class="text-solid fw-semibold fs-5">Below are the details of the news:</div>
+                        <!--end::Description-->
+                </div>
+                <!--end::Heading-->
+                
+                <div class="mb13">
+                    @foreach($news as $details)
 
-                            <h4>News Name:</h4>
-                            <p>{{$details->news_name}}</p>
+                    <h4>Name:</h4>
+                    <p>{{$details->news_name}}</p>
 
-                            <h4>News Description:</h4>
-                            <p>{{$details->news_desc}}</p>
+                    <h4>Description:</h4>
+                    <p>{{$details->news_desc}}</p>
 
-                            @endforeach
-                        </div>
-                    </div>
-                    <!--end::Content container-->
-                        </div>
-                        <!--end::Content-->
-                    </div>
-                    <!--end::Content wrapper-->
-                    <!--begin::Footer-->
-						<div id="kt_app_footer" class="app-footer">
-							<!--begin::Footer container-->
-							<div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
-								<!--begin::Copyright-->
-								<div class="text-dark order-2 order-md-1">
-									<span class="text-muted fw-semibold me-1">2023&copy;</span>
-									<a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">SMS</a>
-								</div>
-								<!--end::Copyright-->
-								<!--begin::Menu-->
-								<ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-									<li class="menu-item">
-										<a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">About</a>
-									</li>
-									<li class="menu-item">
-										<a href="https://devs.keenthemes.com/" target="_blank" class="menu-link px-2">Support</a>
-									</li>
-									<li class="menu-item">
-										<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
-									</li>
-								</ul>
-								<!--end::Menu-->
-							</div>
-							<!--end::Footer container-->
-						</div>
-						<!--end::Footer-->
-					</div>
-					<!--end:::Main-->
+                    @php
+                        $date = $details->created_at;
+
+                        $createDate = new DateTime($date);
+
+                        $formattedDate = $createDate->format('d-m-Y');
+                    @endphp
+                    
+                    <h4>Publish date:</h4>
+                    <p>{{$formattedDate}}</p>
+
+                    @endforeach
+                </div>
+            </div>
+            <!--end::Content container-->
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::Content wrapper-->
+
 @endsection

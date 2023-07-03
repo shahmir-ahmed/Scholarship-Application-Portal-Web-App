@@ -20,7 +20,7 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{route('home')}}" class="text-muted text-hover-primary">Home</a>
+                            <a href="{{route('admin.home')}}" class="text-muted text-hover-primary">Home</a>
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
@@ -76,8 +76,8 @@
 															</th>
 															<th class="min-w-100px">Name</th>
 															<th class="min-w-140px">Description</th>
-															<th class="min-w-100px">Last Date</th>
-															<th class="min-w-150px text-end">Actions</th>
+															<th class="min-w-100px">Deadline</th>
+															<th class="min-w-150px text-center">Actions</th>
 														</tr>
 													</thead>
 													<!--end::Table head-->
@@ -89,13 +89,20 @@
 																<span class="text-dark fw-bold fs-6">{{$serial++}}.</span>
 															</td>
 															<td>
-																<span class="text-dark fw-bold fs-6">{{$scholarship->scholarship_name}}</span>
+																<span class="text-dark fw-normal fs-6">{{$scholarship->scholarship_name}}</span>
 															</td>
 															<td>
-																<span href="#" class="text-muted fw-bold d-block mb-1 fs-6">{{substr($scholarship->scholarship_desc, 0, 40)}}...</span>
+																<span href="#" class="text-muted fw-normal d-block mb-1 fs-6">{{substr($scholarship->scholarship_desc, 0, 40)}}...</span>
 															</td>
+															@php
+																$date = $scholarship->scholarship_last_date;
+																
+																$createDate = new DateTime($date);
+
+																$correctedDate = $createDate->format('d-m-Y');
+															@endphp
 															<td>
-																<span class="text-dark fw-bold d-block mb-1 fs-6">{{$scholarship->scholarship_last_date}}</span>
+																<span class="text-dark fw-normal d-block mb-1 fs-6">{{$correctedDate}}</span>
 															</td>
 															<td class="text-end">
 																<a href="{{route('scholarships.show', $scholarship)}}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
@@ -127,7 +134,7 @@
                                     
                                                                     @csrf
                                                                     
-                                                                    <button class="btn btn-link btn btn-icon btn-bg-light btn-active-color-primary btn-sm" onclick="return confirm('Are you sure?')" type="submit" class="btn-outline-primary">
+                                                                    <button class="btn btn-link btn btn-icon btn-bg-light btn-active-color-primary btn-sm" onclick="return confirm('Are you sure you want to delete the scholarship? \nNote: All the applications for the scholarship will also be deleted!')" type="submit" class="btn-outline-primary">
                                                                         <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                                                         <span class="svg-icon svg-icon-3">
                                                                             {{-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,33 +166,4 @@
 							<!--end::Content-->
 						</div>
 						<!--end::Content wrapper-->
-						<!--begin::Footer-->
-						<div id="kt_app_footer" class="app-footer">
-							<!--begin::Footer container-->
-							<div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
-								<!--begin::Copyright-->
-								<div class="text-dark order-2 order-md-1">
-									<span class="text-muted fw-semibold me-1">2023&copy;</span>
-									<a href="https://keenthemes.com/" target="_blank" class="text-gray-800 text-hover-primary">SMS</a>
-								</div>
-								<!--end::Copyright-->
-								<!--begin::Menu-->
-								<ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-									<li class="menu-item">
-										<a href="https://keenthemes.com/" target="_blank" class="menu-link px-2">About</a>
-									</li>
-									<li class="menu-item">
-										<a href="https://devs.keenthemes.com/" target="_blank" class="menu-link px-2">Support</a>
-									</li>
-									<li class="menu-item">
-										<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
-									</li>
-								</ul>
-								<!--end::Menu-->
-							</div>
-							<!--end::Footer container-->
-						</div>
-						<!--end::Footer-->
-					</div>
-					<!--end:::Main-->
 @endsection

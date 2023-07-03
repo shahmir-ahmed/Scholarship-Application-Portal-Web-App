@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use Session;
+
 class SubscriptionsController extends Controller
 {
     /**
@@ -14,14 +16,25 @@ class SubscriptionsController extends Controller
      */
     public function index()
     {
+        // if session is not set
         if(Session::get('admin')==NULL){
             return redirect()->route('admin.login');
         }
 
         // using joins get all the subscribed users and pass to the view
-        // $subscribedUsers = Subscription::where('')
+        // $subscribedUsers = Subscription::where('');
+        $subscriptions = Subscription::join('users', 'subscriptions.subscription_user_id', '=', 'users.id')
+                                        ->select('subscriptions.*', 'users.name', 'users.email')
+                                        ->get();
+
+        $count = count($subscriptions);
+
+        $serial = 1;
+
+        // dd($subscriptions);
+
         
-        return view('subscriptions.index', compact('subscribedUsers'));
+        return view('subscriptions.index', compact('subscriptions', 'count', 'serial'));
     }
 
     // /**
@@ -51,7 +64,12 @@ class SubscriptionsController extends Controller
 
         $subscriptionId = $subscription->subscription_id;
 
-        $Subscription = Subscription::where('subscription_id', $subscriptionId)->get();
+        // $Subscription = Subscription::where('subscription_id', $subscriptionId)->get();
+
+        $Subscription = Subscription::join('users', 'subscriptions.subscription_user_id', '=', 'users.id')
+                                        ->where('subscriptions.subscription_id', $subscriptionId)
+                                        ->select('subscriptions.*', 'users.name', 'users.email')
+                                        ->get();
 
         return view('subscriptions.show', compact('Subscription'));
     }

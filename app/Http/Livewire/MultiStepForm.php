@@ -25,6 +25,8 @@ use App\Models\AppliedScholarship;
 use App\Models\Scholarship;
 use Auth;
 
+use Carbon\Carbon;
+
 class MultiStepForm extends Component
 {
 
@@ -166,8 +168,49 @@ class MultiStepForm extends Component
         // $this->ID = $scholarshipId;
         // echo $this->scholarshipId;
 
+        // dd('here');
+
         // scholarship name for title of application form
         $scholarshipName = Scholarship::where('scholarship_id', $scholarshipId)->get();
+
+
+        // Code because of browser back button when application is submitted the back button opens the previous page again and the form reloads from here so check that user has applied to this scholarship or not already if yes then redirect the user to home page
+
+        // based on the scholarsjhip id and the user id checking from applied scholarhsips table that user has already applied or not
+        // $applicationDetails = AppliedScholarship::where('applied_scholarships_scholarship_id', $scholarshipId)
+        // ->where('applied_scholarships_user_id', Auth::user()->id)->get();
+        $applicationDetails = AppliedScholarship::where('applied_scholarships_scholarship_id', $scholarshipId)
+        ->where('applied_scholarships_user_id', Auth::user()->id)->exists();
+
+        // dd($scholarshipId, Auth::user()->id);
+
+        // dd(empty($applicationDetails)); // error checking on empty, it is empty but it is showing false on empty because of some variables in it
+        
+        // if user has already applied
+        // if(!empty($applicationDetails)){
+            // dd($applicationDetails);
+            // redirect to home
+            // return redirect()->route('home');
+        // }
+
+        // if user has already applied
+        if($applicationDetails){
+            // redirect to home
+            return redirect()->route('home');
+        }
+
+        
+        // Checking on direct url enter in browser if scholarship has expired then user cannot apply
+        foreach($scholarshipName as $details){
+            $scholarshipLastDate = $details->scholarship_last_date;
+        }
+
+        // if deadline has passed
+        if($scholarshipLastDate < Carbon::now()){
+            // redirect to home page
+            return redirect()->route('home');
+        }
+
 
         // returning the application view with the progress value and the scholarship id
         // return view('user.scholarship.application', ['progressValue' => $this->progressValue, 'scholarshipId' => $scholarshipId]);
@@ -196,15 +239,86 @@ class MultiStepForm extends Component
         $this->validateData();
         // dd('here');
 
-        $this->currentStep++;
-
         // Here when current form validated has no error 
-         // And on 16 step i want to submit the form if the form is valid
-         if($this->currentStep==17){
+        // And on 16 step i want to submit the form if the form is valid
+         if($this->currentStep==16){
             // dd($this);
             $this->submitForm();
          }
 
+         
+         // Step 3 form family members earinings info needs to be filled to move to next form otherwise dont
+        if($this->currentStep==3){
+           // if there is no record entered of family memeber
+           if(empty($this->applicant_family_members)){
+
+                // set alert message in session
+               $this->showAlert('Please enter family member details!');
+
+               return;
+           }
+           else{
+                // destroy alert variable in session
+               session()->forget('alert');
+           }
+        }
+
+        
+        // Step 4 form family members info needs to be filled to move to next form otherwise dont
+        if($this->currentStep==4){
+           // if there is no record entered of family memeber
+           if(empty($this->applicant_family_members_earnings)){
+                // set alert message in session
+               $this->showAlert('Please enter family member earnings details!');
+               
+               return;
+           }
+           else{
+                // destroy alert variable in session
+               session()->forget('alert');
+           }
+       }
+       
+       // Step 7 form family monthly income info needs to be filled to move to next form otherwise dont
+       if($this->currentStep==7){
+          // if there is no record entered of family memeber
+          if(empty($this->applicant_family_monthly_income)){
+              // set alert message in session
+              $this->showAlert('Please enter family monthly income details!');
+
+              return;
+          }
+          else{
+              // destroy alert variable in session
+              session()->forget('alert');
+          }
+       }
+
+       // Step 15 form educational record info needs to be filled to move to next form otherwise dont
+       if($this->currentStep==15){
+          // if there is no record entered of family memeber
+          if(empty($this->applicant_education_records)){
+              // set alert message in session
+              $this->showAlert('Please enter educational record details!');
+
+              return;
+          }
+          else{
+              // destroy alert variable in session
+              session()->forget('alert');
+          }
+       }
+
+        // increase current step count
+        $this->currentStep++;
+    
+        
+         if($this->currentStep > $this->totalSteps){
+             $this->currentStep = $this->totalSteps;
+            // dd('here');
+        }
+        
+        // progress calculate
          if($this->currentStep==16){
             // calculate the new progress value based on the current step number
             $this->progressValue = round(($this->currentStep/16)*100)-1; // b/c on last step 99%
@@ -213,13 +327,6 @@ class MultiStepForm extends Component
             // calculate the new progress value based on the current step number
             $this->progressValue = round(($this->currentStep/16)*100); 
          }
-        
-
-         if($this->currentStep > $this->totalSteps){
-             $this->currentStep = $this->totalSteps;
-            // dd('here');
-         }
-
          
     }
 
@@ -244,14 +351,15 @@ class MultiStepForm extends Component
 
         $this->resetErrorBag();
 
-        $this->currentStep++;
-
-        if($this->currentStep==17){
+        // if step 16 i.e. last form  then submit form
+        if($this->currentStep==16){
             // dd($this);
             $this->submitForm();
          }
 
+        $this->currentStep++;
 
+         // progress calculate
         if($this->currentStep!=17){
             // calculate the new progress value based on the current step number
             $this->progressValue = round(($this->currentStep/16)*100); 
@@ -279,6 +387,14 @@ class MultiStepForm extends Component
         }
     }
 
+    public function showAlert($message)
+    {
+        // store a message in a alert variable in session
+        session()->flash('alert', $message);
+    }
+
+
+
     // get the current progress value
     // public function getProgressValue(){
     //     return $this->progressValue;
@@ -290,33 +406,33 @@ class MultiStepForm extends Component
 
         // applicant personal details form
         if($this->currentStep == 1){
-            // $this->validate([
-            //     'applicant_uni'=>'required|string|regex:/^[^0-9]*$/',
-            //     'applicant_degree'=>'required',
-            //     'applicant_reg_no'=>'required|string',
-            //     'applicant_name'=>'required|string|regex:/^[^0-9]*$/',
-            //     'applicant_semester'=>'required',
-            //     'applicant_cgpa'=>'required|numeric|regex:/^\d{1}\.\d{1,2}$/',
-            //     'applicant_gender'=>'required',
-            //     'applicant_dob'=>'required|before:today',
-            //     'applicant_cnic'=>'required|max:15',
-            //     'applicant_martial_status'=>'required',
-            //     'applicant_age'=>'required|integer|digits:2',
-            //     'applicant_domicile'=>'required|string|regex:/^[^0-9]*$/',
-            //     'applicant_present_address'=>'required|string',
-            //     'applicant_permanant_address'=>'required|string',
-            // ]);
+            $this->validate([
+                'applicant_uni'=>'required|string|regex:/^[^0-9]*$/',
+                'applicant_degree'=>'required',
+                'applicant_reg_no'=>'required|string',
+                'applicant_name'=>'required|string|regex:/^[^0-9]*$/',
+                'applicant_semester'=>'required',
+                'applicant_cgpa'=>'required|numeric|regex:/^\d{1}\.\d{1,2}$/',
+                'applicant_gender'=>'required',
+                'applicant_dob'=>'required|before:today',
+                'applicant_cnic'=>'required|max:15|regex:/^[0-9-]+$/',
+                'applicant_martial_status'=>'required',
+                'applicant_age'=>'required|integer|digits:2',
+                'applicant_domicile'=>'required|string|regex:/^[^0-9]*$/',
+                'applicant_present_address'=>'required|string',
+                'applicant_permanant_address'=>'required|string',
+            ]);
         }
         // applicant employment details form
         else if($this->currentStep == 2){
-            // $this->validate([
-            //     'applicant_employment_designation' => 'required|string|regex:/^[^0-9]*$/',
-            //     'applicant_employment_company_name' => 'required|string|regex:/^[^0-9]*$/',
-            //     'applicant_employment_gross_income' => 'required|integer',
-            //     'applicant_employment_monthly_income' => 'required|integer',
-            //     'applicant_employment_telephone_number' => 'required|regex:/^[0-9()+-]+$/',
-            //     'applicant_employment_email' => 'required|email',
-            // ]);
+            $this->validate([
+                'applicant_employment_designation' => 'required|string|regex:/^[^0-9]*$/',
+                'applicant_employment_company_name' => 'required|string|regex:/^[^0-9]*$/',
+                'applicant_employment_gross_income' => 'required|integer',
+                'applicant_employment_monthly_income' => 'required|integer',
+                'applicant_employment_telephone_number' => 'required|regex:/^[0-9()+-]+$/|max:12',
+                'applicant_employment_email' => 'required|email',
+            ]);
         }
         // applicant family members details form
         else if($this->currentStep == 3){
@@ -343,6 +459,7 @@ class MultiStepForm extends Component
         // family member earnings details step form
         else if($this->currentStep == 4){
 
+            // redolved using session varaibles in increaseStep metrhod
             // if(empty($this->applicant_family_members_earnings)){
             //     echo '<script>alert("Please enter family member details!");</script>';
             //     // $this->validate([
@@ -383,24 +500,24 @@ class MultiStepForm extends Component
         }
         // applicant father details step
         else if($this->currentStep == 6){
-            // $this->validate([
-            //     'applicant_father_details_name' => 'required|regex:/^[^0-9]*$/',
-            //     'applicant_father_details_cnic' => 'required|max:15|regex:/^[0-9-]+$/',
-            //     'applicant_father_details_vital_status' => 'required',
-            //     'applicant_father_details_job_status' => 'required',
-            //     'applicant_father_details_martial_status' => 'required',
-            //     'applicant_father_details_company_name' => 'required',
-            //     'applicant_father_details_mobile_number' => 'required|regex:/^[0-9-]+$/|max:11',
-            //     'applicant_father_details_occupation' => 'required',
-            //     'applicant_father_details_nts' => 'required',
-            //     'applicant_father_details_designation_grade' => 'required',
-            //     'applicant_father_details_gross_income' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_father_details_monthly_income' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_father_details_applicant_name' => 'required|regex:/^[a-zA-Z\s.]+$/',
-            //     'applicant_father_details_applicant_relation' => 'required|regex:/^[a-zA-Z\s.]+$/',
-            //     'applicant_father_details_applicant_occupation_designation' => 'required',
-            //     'applicant_father_details_applicant_monthly_financial_support' => 'required|regex:/^[0-9,]+$/',
-            // ]);
+            $this->validate([
+                'applicant_father_details_name' => 'required|regex:/^[^0-9]*$/',
+                'applicant_father_details_cnic' => 'required|max:15|regex:/^[0-9-]+$/',
+                'applicant_father_details_vital_status' => 'required',
+                'applicant_father_details_job_status' => 'required',
+                'applicant_father_details_martial_status' => 'required',
+                'applicant_father_details_company_name' => 'required',
+                'applicant_father_details_mobile_number' => 'required|regex:/^[0-9-]+$/|max:12',
+                'applicant_father_details_occupation' => 'required',
+                'applicant_father_details_nts' => 'required',
+                'applicant_father_details_designation_grade' => 'required',
+                'applicant_father_details_gross_income' => 'required|regex:/^[0-9,]+$/',
+                'applicant_father_details_monthly_income' => 'required|regex:/^[0-9,]+$/',
+                'applicant_father_details_applicant_name' => 'required|regex:/^[a-zA-Z\s.]+$/',
+                'applicant_father_details_applicant_relation' => 'required|regex:/^[a-zA-Z\s.]+$/',
+                'applicant_father_details_applicant_occupation_designation' => 'required',
+                'applicant_father_details_applicant_monthly_financial_support' => 'required|regex:/^[0-9,]+$/',
+            ]);
         }
         
         // family monthly income details step
@@ -435,33 +552,33 @@ class MultiStepForm extends Component
 
         // accomodation expenditure details step
         else if($this->currentStep == 9){
-            // $this->validate([
-            //     'applicant_family_accomodation_expenditures_type' => 'required',
-            //     'applicant_family_accomodation_expenditures_status' => 'required',
-            //     'applicant_family_accomodation_expenditures_rent_payment_type' => 'required',
-            //     'applicant_family_accomodation_expenditures_plot_size' => 'required',
-            //     'applicant_family_accomodation_expenditures_address' => 'required',
-            //     'applicant_family_accomodation_expenditures_total_bed_rooms' => 'required',
-            //     'applicant_family_accomodation_expenditures_total_acs' => 'required',
-            //     'applicant_family_accomodation_expenditures_monthly_rent' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_family_accomodation_expenditures_annual_rent_expense' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_family_accomodation_expenditures_total_rent_expense' => 'required|regex:/^[0-9,]+$/',
-            // ]);
+            $this->validate([
+                'applicant_family_accomodation_expenditures_type' => 'required',
+                'applicant_family_accomodation_expenditures_status' => 'required',
+                'applicant_family_accomodation_expenditures_rent_payment_type' => 'required',
+                'applicant_family_accomodation_expenditures_plot_size' => 'required',
+                'applicant_family_accomodation_expenditures_address' => 'required',
+                'applicant_family_accomodation_expenditures_total_bed_rooms' => 'required',
+                'applicant_family_accomodation_expenditures_total_acs' => 'required',
+                'applicant_family_accomodation_expenditures_monthly_rent' => 'required|regex:/^[0-9,]+$/',
+                'applicant_family_accomodation_expenditures_annual_rent_expense' => 'required|regex:/^[0-9,]+$/',
+                'applicant_family_accomodation_expenditures_total_rent_expense' => 'required|regex:/^[0-9,]+$/',
+            ]);
         }
 
         // other family expenditures details step
         else if($this->currentStep == 10){
-            // $this->validate([
-            //     'applicant_other_accomodation_expenditures_telephone' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_other_accomodation_expenditures_electricity' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_other_accomodation_expenditures_gas' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_other_accomodation_expenditures_water' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_other_accomodation_expenditures_education' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_other_accomodation_expenditures_accomodation' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_other_accomodation_expenditures_utilities' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_other_accomodation_expenditures_medical' => 'required|regex:/^[0-9,]+$/',
-            //     'applicant_other_accomodation_expenditures_misc' => 'required|regex:/^[0-9,]+$/',
-            // ]);
+            $this->validate([
+                'applicant_other_accomodation_expenditures_telephone' => 'required|regex:/^[0-9,]+$/',
+                'applicant_other_accomodation_expenditures_electricity' => 'required|regex:/^[0-9,]+$/',
+                'applicant_other_accomodation_expenditures_gas' => 'required|regex:/^[0-9,]+$/',
+                'applicant_other_accomodation_expenditures_water' => 'required|regex:/^[0-9,]+$/',
+                'applicant_other_accomodation_expenditures_education' => 'required|regex:/^[0-9,]+$/',
+                'applicant_other_accomodation_expenditures_accomodation' => 'required|regex:/^[0-9,]+$/',
+                'applicant_other_accomodation_expenditures_utilities' => 'required|regex:/^[0-9,]+$/',
+                'applicant_other_accomodation_expenditures_medical' => 'required|regex:/^[0-9,]+$/',
+                'applicant_other_accomodation_expenditures_misc' => 'required|regex:/^[0-9,]+$/',
+            ]);
         }
 
         // applicant employment details step
@@ -510,11 +627,11 @@ class MultiStepForm extends Component
 
         // Previous scholarship taken details step
         else if($this->currentStep == 14){
-            // $this->validate([
-            //     'applicant_loans_loan_one_reason' => 'required',
-            //     'applicant_loans_loan_two_reason' => 'required',
-            //     'applicant_loans_loan_three_reason' => 'required',
-            // ]);
+            $this->validate([
+                'applicant_loans_loan_one_reason' => 'required',
+                'applicant_loans_loan_two_reason' => 'required',
+                'applicant_loans_loan_three_reason' => 'required',
+            ]);
         }
 
         // applicant educational record details step
@@ -1077,6 +1194,11 @@ class MultiStepForm extends Component
         'applied_scholarships_scholarship_id' => $this->scholarshipID,
         'applied_scholarships_status' => "Submitted"
     ]);
+    
+    // set alert message
+    $this->emit('show-alert', ['message' => 'Application form submitted successfully!']);
+
+    // $this->emit('replaceUrl');
 
     // redirect to user dashboard
     return redirect()->route('profile');

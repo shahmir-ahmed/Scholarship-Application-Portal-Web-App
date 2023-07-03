@@ -16,7 +16,7 @@ License: For each use you must have a valid license purchased only from above li
 <!-- Mirrored from preview.keenthemes.com/metronic8/demo1/authentication/layouts/overlay/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Oct 2022 11:11:58 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-		<title>Scholarships Website - Regsister</title>
+		<title>ScholarApplica - Signup</title>
 		<meta charset="utf-8" />
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Flask & Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Flask & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
@@ -55,10 +55,27 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root" id="kt_app_root">
 			<!--begin::Page bg image-->
-			<style>body { background-image: url('{{asset("Eziline/Scholarship Management System/public/media/auth/bg10.jpg")}}'); } [data-theme="dark"] body { background-image: url('../public/media/auth/bg10-dark.jpg'); }</style>
+			<style>body { 
+				background-image: url('{{asset("Eziline/Scholarship Management System/public/media/auth/bg10.jpg")}}');
+				background-attachment: fixed!important;
+				}
+				.back-button-container{
+				position: absolute;
+				margin: 45px
+				} 
+				[data-theme="dark"] body { 
+					background-image: url('../public/media/auth/bg10-dark.jpg'); 
+					background-attachment: fixed!important;
+					}</style>
 			<!--end::Page bg image-->
 			<!--begin::Authentication - Sign-up -->
 			<div class="d-flex flex-column flex-lg-row flex-column-fluid">
+				{{-- Back button --}}
+				<div class="back-button-container">
+					<h5>
+						<a href="{{route('home')}}"><i class="fa-solid fa-house"></i> Home</a>
+					</h5>
+				</div>
 				<!--begin::Aside-->
 				<div class="d-flex flex-lg-row-fluid">
 					<!--begin::Content-->
@@ -232,7 +249,7 @@ License: For each use you must have a valid license purchased only from above li
 		</div>
 		<!--end::Root-->
 		<!--begin::Javascript-->
-		<script>var hostUrl = "../../../assets/index.html";</script>
+		{{-- <script>var hostUrl = "../../../assets/index.html";</script> --}}
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 		<script src="{{asset('Eziline/Scholarship Management System/public/plugins/global/plugins.bundle.js')}}"></script>
 		<script src="{{asset('Eziline/Scholarship Management System/public/js/scripts.bundle.js')}}"></script>

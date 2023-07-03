@@ -16,7 +16,7 @@ License: For each use you must have a valid license purchased only from above li
 <!-- Mirrored from preview.keenthemes.com/metronic8/demo1/landing.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 17 Oct 2022 11:10:40 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-		<title>Scholarship Website - Home</title>
+		<title>ScholarApplica - Home</title>
 		<meta charset="utf-8" />
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Flask & Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Flask & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
@@ -98,13 +98,13 @@ License: For each use you must have a valid license purchased only from above li
 									<div class="d-lg-block p-5 p-lg-0" data-kt-drawer="true" data-kt-drawer-name="landing-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="200px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_landing_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav_wrapper'}">
 										<!--begin::Menu-->
 										<div class="menu menu-column flex-nowrap menu-rounded menu-lg-row menu-title-gray-500 menu-state-title-primary nav nav-flush fs-5 fw-semibold" id="kt_landing_menu">
-											<!--begin::Menu item-->
+											{{-- <!--begin::Menu item-->
 											<div class="menu-item">
 												<!--begin::Menu link-->
 												<a class="menu-link nav-link active py-3 px-4 px-xxl-6" href="#kt_body" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Home</a>
 												<!--end::Menu link-->
 											</div>
-											<!--end::Menu item-->
+											<!--end::Menu item--> --}}
 											<!--begin::Menu item-->
 											<div class="menu-item">
 												<!--begin::Menu link-->
@@ -115,7 +115,7 @@ License: For each use you must have a valid license purchased only from above li
 											<!--begin::Menu item-->
 											<div class="menu-item">
 												<!--begin::Menu link-->
-												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#events" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Events</a>
+												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#about-us" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">About us</a>
 												<!--end::Menu link-->
 											</div>
 											<!--end::Menu item-->
@@ -129,6 +129,13 @@ License: For each use you must have a valid license purchased only from above li
 											<!--begin::Menu item-->
 											<div class="menu-item">
 												<!--begin::Menu link-->
+												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#pricing" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Subscription</a>
+												<!--end::Menu link-->
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu item-->
+											<div class="menu-item">
+												<!--begin::Menu link-->
 												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#news" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">News</a>
 												<!--end::Menu link-->
 											</div>
@@ -136,7 +143,7 @@ License: For each use you must have a valid license purchased only from above li
 											<!--begin::Menu item-->
 											<div class="menu-item">
 												<!--begin::Menu link-->
-												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#pricing" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Subscription</a>
+												<a class="menu-link nav-link py-3 px-4 px-xxl-6" href="#events" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true">Events</a>
 												<!--end::Menu link-->
 											</div>
 											<!--end::Menu item-->
@@ -177,7 +184,7 @@ License: For each use you must have a valid license purchased only from above li
 							<h1 class="text-white lh-base fw-bold fs-2x fs-lg-3x mb-15">Find & Apply to Scholarships <br> to Finance Your Studies
 							<br />with 
 							<span style="background: linear-gradient(to right, #12CE5D 0%, #FFD80C 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
-								<span id="kt_landing_hero_text">The Scholarship Website</span>
+								<span id="kt_landing_hero_text">ScholarApplica</span>
 							</span></h1>
 							<!--end::Title-->
 							<!--begin::Action-->
@@ -1127,7 +1134,7 @@ License: For each use you must have a valid license purchased only from above li
 			<!--end::Projects Section--> --}}
 			
 									
-			@if($subscribed==false)
+			{{-- @if($subscribed==false) --}}
 			<!--begin::Pricing Section-->
 			<div class="mt-sm-n20">
 				<!--begin::Curve top-->
@@ -1614,15 +1621,17 @@ License: For each use you must have a valid license purchased only from above li
 												@endif --}}
 											
 											<!--begin::Select-->
-											{{-- @if(!Auth::check())
+											@if(!Auth::check())
 												<a href="{{route('login')}}" class="btn btn-color-primary btn-active-light-primary btn-light">Subscribe!</a>
 											
-											@else --}}
-											<form action="{{route('checkout')}}" method="POST">
-												<input type="hidden" name="_token" value="{{csrf_token()}}">
-												<button class="btn btn-color-primary btn-active-light-primary btn-light" type="submit">Subscribe!</button>
-											</form>
-											{{-- @endif --}}
+											@else
+												@if($subscribed==false)
+													<form action="{{route('checkout')}}" method="POST">
+														<input type="hidden" name="_token" value="{{csrf_token()}}">
+														<button class="btn btn-color-primary btn-active-light-primary btn-light" type="submit">Subscribe!</button>
+													</form>
+												@endif
+											@endif
 											{{-- <a href="{{$link}}" class="btn btn-color-primary btn-active-light-primary btn-light">Subscribe!</a> --}}
 											<!--end::Select-->
 										</div>
@@ -1649,7 +1658,7 @@ License: For each use you must have a valid license purchased only from above li
 				</div>
 				<!--end::Curve bottom-->
 			</div>
-			@endif
+			{{-- @endif --}}
 			<!--end::Pricing Section-->
 			<!--begin::Testimonials Section-->
 			{{-- <div class="mt-20 mb-n20 position-relative z-index-2">
@@ -2135,17 +2144,17 @@ License: For each use you must have a valid license purchased only from above li
 							<div class="d-flex align-items-center order-2 order-md-1">
 								<!--begin::Logo-->
 								<a href="{{route('home')}}">
-									<img alt="Logo" src="{{asset('Eziline/Scholarship Management System/public/logo.png')}}" class="h-15px h-md-20px" />
+									<img alt="Logo" src="{{asset('Eziline/Scholarship Management System/public/logo.png')}}" class="h-50px h-md-60px" />
 								</a>
 								<!--end::Logo image-->
 								<!--begin::Logo image-->
-								<span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="https://keenthemes.com/">&copy; 2023 SMS Inc.</span>
+								<span class="mx-5 fs-6 fw-semibold text-gray-600 pt-1" href="https://keenthemes.com/">&copy; 2023 ScholarApplica Inc.</span>
 								<!--end::Logo image-->
 							</div>
 							<!--end::Copyright-->
 							<!--begin::Menu-->
 							<ul class="menu menu-gray-600 menu-hover-primary fw-semibold fs-6 fs-md-5 order-1 mb-5 mb-md-0">
-								<li class="menu-item">
+								{{-- <li class="menu-item">
 									<a href="#about-us" data-kt-scroll-toggle="true" data-kt-drawer-dismiss="true" class="menu-link px-2">About</a>
 								</li>
 								<li class="menu-item mx-5">
@@ -2153,6 +2162,9 @@ License: For each use you must have a valid license purchased only from above li
 								</li>
 								<li class="menu-item">
 									<a href="#pricing" class="menu-link px-2">Purchase</a>
+								</li> --}}
+								<li class="menu-item fw-bold fs-12">
+									<a href="https://github.com/shahmir-ahmed" target="_blank" class="menu-link px-2" style="color: orange"> <span style="color:white!important">𝙷𝚊𝚗𝚍 𝙲𝚛𝚊𝚏𝚝𝚎𝚍 & 𝙼𝚊𝚍𝚎 𝚆𝚒𝚝𝚑 ❤️ 𝚋𝚢 &nbsp;</span> 𝚂𝚑𝚊𝚑𝚖𝚒𝚛 𝙰𝚑𝚖𝚎𝚍</a>
 								</li>
 							</ul>
 							<!--end::Menu-->
@@ -2890,7 +2902,7 @@ License: For each use you must have a valid license purchased only from above li
 		</div>
 		<!--end::Scrolltop-->
 		<!--begin::Javascript-->
-		<script>var hostUrl = "assets/index.html";</script>
+		{{-- <script>var hostUrl = "assets/index.html";</script> --}}
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 		<script src="{{asset('Eziline/Scholarship Management System/public/plugins/global/plugins.bundle.js')}}"></script>
 		<script src="{{asset('Eziline/Scholarship Management System/public/js/scripts.bundle.js')}}"></script>

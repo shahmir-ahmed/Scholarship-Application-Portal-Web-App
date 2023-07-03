@@ -11,6 +11,13 @@ use Session;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\AppliedScholarship;
+use App\Models\Scholarship;
+use App\Models\Subscription;
+use App\Models\User;
+
+use Carbon\Carbon;
+
 class AdminController extends Controller
 {
     //
@@ -100,7 +107,60 @@ class AdminController extends Controller
     public function dashboard()
     {
         if(Session::get('admin')!=NULL){
-            return view('admin.home');
+
+            // get the active applications
+            $activeApplications = AppliedScholarship::where('applied_scholarships_status', 'Submitted')
+            ->orWhere('applied_scholarships_status', 'Verified')
+            ->orWhere('applied_scholarships_status', 'Selected')
+            ->get();
+
+            $activeApplicationsCount = count($activeApplications);
+            
+            // get completed applications count
+            $completedApplications = AppliedScholarship::where('applied_scholarships_status', 'Not Selected')
+            ->orWhere('applied_scholarships_status', 'Disapproved')
+            ->orWhere('applied_scholarships_status', 'Scholarship granted')
+            ->get();
+
+            $completedApplicationsCount = count($completedApplications);
+
+            // adding both to get the total scholarships count
+            $totalScholarships = $activeApplicationsCount + $completedApplicationsCount;
+            
+            // calulating the completed scholarships %age out of total
+            $completedApplicationsPercentage = ($completedApplicationsCount/$totalScholarships) * 100;
+
+
+            // Subscriptions card
+            // get the subscriptions in current month
+
+            $currentMonth = Carbon::now()->format('F');
+
+            $currentMonthSubscriptions = Subscription::whereMonth('created_at', Carbon::now()->month)->get();
+
+            // count the subscriptions to multiply with 3.99 to calculate the earning
+            $currentMonthSubscriptionsCount = count($currentMonthSubscriptions);
+
+            $earningsThisMonth = $currentMonthSubscriptionsCount * 3.99;
+            
+            
+            // Subscriptions progress card
+            // get all the subscriptions
+
+            $subscriptions = Subscription::all();
+
+            // count the subscriptions to multiply with 3.99 to calculate the earning
+            $subscriptionsCount = count($subscriptions);
+
+            $totalEarnings = $subscriptionsCount * 3.99;
+
+            
+            // Total users card
+            $users = User::all();
+
+            $usersCount = count($users);
+
+            return view('admin.home', compact('activeApplicationsCount', 'completedApplicationsCount', 'completedApplicationsPercentage', 'earningsThisMonth', 'currentMonth', 'totalEarnings', 'usersCount'));
             // return redirect()->route('admin.home');
         }
   

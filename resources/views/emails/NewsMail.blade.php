@@ -360,7 +360,7 @@
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="{{route('home')}}" target="_blank">Check it out</a> </td>
+                                      <td> <a href="#" target="_blank">Check it out</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>

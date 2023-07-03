@@ -7,6 +7,11 @@ use Auth;
 use App\Models\AppliedScholarship;
 use DB;
 use App\Models\User;
+use App\Models\Subscription;
+
+use DateTime;
+
+use Carbon\Carbon;
 
 use Intervention\Image\Facades\Image;
 
@@ -141,8 +146,59 @@ class ProfileController extends Controller
 
         // $base64Image = $imageInstance->encode('data-url');
 
+
+        // get the subscriptions data of the user
+        $subscriptionsData = Subscription::where('subscription_user_id', Auth::user()->id)->get();
+
+        $subscriptionStartDate = NULL;
+
+        $subscriptionExpiryDate = NULL;
+
+        $subscriptionStatus = NULL;
+
+        // if user has subscription record
+        if(Subscription::where('subscription_user_id', Auth::user()->id)->exists()){
+
+            $anySubcription = true; // flag if there is user subscription record
+
+            foreach($subscriptionsData as $subscriptionDetails){
+                $subscriptionDate = $subscriptionDetails->created_at;
+            }
+
+            // {{-- removing time from data and correcting the format --}}
+            $date = $subscriptionDate;
+
+            $createDate = new DateTime($date);
+
+            $strippedDate = $createDate->format('d-F-Y');
+
+            $subscriptionStartDate = $strippedDate;
+
+            // {{-- Calculating date 30 days after subscription date --}}
+
+            // Calculate the date after 30 days
+            $dateAfter30Days = date('d-F-Y', strtotime($subscriptionDate . ' +30 days'));
+
+            $subscriptionExpiryDate = $dateAfter30Days;
+
+            // echo $subscriptionExpiryDate.'<br>';
+            // echo Carbon::now().'<br>';
+
+            // if expiry date is greater than today means future date then subscription is active
+            if($subscriptionExpiryDate > Carbon::now()){
+                $subscriptionStatus = "Active";
+            }
+            // if expiry date is older than today
+            else{
+                $subscriptionStatus = "Expired";
+            }
+        }
+        else{
+            $anySubcription = false; // flag if there is no user subscription record
+        }
+
         // Pass the scholarships and image data to the view
-        return view('account.account', compact('appliedScholarships', 'base64Image'));
+        return view('account.account', compact('appliedScholarships', 'base64Image', 'anySubcription','subscriptionStartDate', 'subscriptionExpiryDate', 'subscriptionStatus'));
 
 
         // return the profile view with the data

@@ -11,7 +11,7 @@
 
     <h3>{{ $mailData['body'] }}</h3>
 
-    <p>You have subscribed to get update about latest scholarhsips, news and events. <br> Turn on your notifications and stay updated!</p>
+    <p>You have subscribed to get updates about latest scholarhsips, news and events. <br> Turn on your notifications and stay tuned!</p>
 
     <p>Thank You.</p>
 </body>

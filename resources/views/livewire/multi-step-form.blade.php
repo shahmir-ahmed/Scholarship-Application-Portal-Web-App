@@ -39,16 +39,60 @@
                             <div class="col-lg-6">
                                 <select wire:model="applicant_degree" id="" class="form-control" >
                                     <option value="">Select Degree</option>
-                                    <option value="Computer Science">Computer Science</option>
+                                    {{-- <option value="Computer Science">Computer Science</option>
                                     <option value="International Relations">International Relations</option>
                                     <option value="Business Management System">Business Management System
                                     </option>
                                     <option value="Environmental Science">Environmental Science</option>
                                     <option value="Behaviour Science">Behaviour Science</option>
-                                    <option value="Behaviour Science">Behaviour Science</option>
                                     <option value="Mathematical Science">Mathematical Science</option>
                                     <option value="Physics">Physics</option>
-                                    <option value="Media & Communication">Media & Communication</option>
+                                    <option value="Media & Communication">Media & Communication</option> --}}
+                                    <option value="Medical Sciences">
+                                        Medical Sciences
+                                    </option>
+                                    <option value="Engineering">
+                                        Engineering
+                                    </option>
+                                    <option value="Technical">
+                                        Technical
+                                    </option>
+                                    <option value="Computer Sciences & Information Technology">
+                                        Computer Sciences & Information Technology
+                                    </option>
+                                    <option value="Art & Design">
+                                        Art & Design
+                                    </option>
+                                    <option value="Management Sciences">
+                                        Management Sciences
+                                    </option>
+                                    <option value="Social Sciences">
+                                        Social Sciences
+                                    </option>
+                                    <option value="Biological & Life Sciences">
+                                        Biological & Life Sciences
+                                    </option>
+                                    <option value="Chemical & Material Sciences">
+                                        Chemical & Material Sciences
+                                    </option>
+                                    <option value="Physics & Numerical Sciences">
+                                        Physics & Numerical Sciences
+                                    </option>
+                                    <option value="Earth & Environmental Sciences">
+                                        Earth & Environmental Sciences
+                                    </option>
+                                    <option value="Agricultural Sciences">
+                                        Agricultural Sciences
+                                    </option>
+                                    <option value="Religious Studies">
+                                        Religious Studies
+                                    </option>
+                                    <option value="Media Studies">
+                                        Media Studies
+                                    </option>
+                                    <option value="Commerce / Finance & Accounting">
+                                        Commerce / Finance & Accounting
+                                    </option>
                                 </select>
                                 <span class="text-danger">
                                     @error('applicant_degree')
@@ -146,7 +190,7 @@
                             <label class="col-lg-3 col-form-label">CNIC</label>
                             <div class="col-lg-6">
                                 <input type="text" wire:model="applicant_cnic" class="form-control"
-                                    placeholder="(xxxxx-xxxxxxx-x)"  />
+                                    placeholder="xxxxx-xxxxxxx-x"  />
                                 <span class="text-danger">
                                     @error('applicant_cnic')
                                         {{ str_replace("applicant cnic", 'CNIC', $message) }}
@@ -301,7 +345,7 @@
                             <label class="col-lg-3 col-form-label">Telephone No</label>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control"
-                                    wire:model="applicant_employment_telephone_number" />
+                                    wire:model="applicant_employment_telephone_number"/>
                                 <span class="text-danger">
                                     @error('applicant_employment_telephone_number')
                                         {{ str_replace("applicant employment telephone number", 'telephone number', $message) }}
@@ -341,6 +385,15 @@
                     Skip & Continue
                 </a>
             </div> --}}
+            {{-- If there is no record entered in form and next is pressed then this will be shown avlue setted from increaseStep function --}}
+            @if (session()->has('alert'))
+                <div class="alert alert-danger" style="height: 50px!important; margin-top: 10px;">
+                    <p>
+                        {{ session('alert') }}
+                    </p>
+                </div>
+            @endif
+
         </div>
         <div class="card-body">
             <div class="card">
@@ -572,6 +625,14 @@
             <h3 class="card-title">
                 4. Family Members Earnings Information
             </h3>
+            {{-- If there is no record entered in form and next is pressed then this will be shown avlue setted from increaseStep function --}}
+            @if (session()->has('alert'))
+                <div class="alert alert-danger" style="height: 50px!important; margin-top: 10px;">
+                    <p>
+                        {{ session('alert') }}
+                    </p>
+                </div>
+            @endif
         </div>
 
         <div class="card-body">
@@ -1195,7 +1256,7 @@
                             <label class="col-lg-3 col-form-label">Father CNIC</label>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control" wire:model="applicant_father_details_cnic"
-                                placeholder="(xxxxx-xxxxxxx-x)"/>
+                                placeholder="xxxxx-xxxxxxx-x"/>
                                      <span class="text-danger">
                                          @error('applicant_father_details_cnic')
                                          {{ str_replace("The applicant father details cnic field", 'Father CNIC', $message) }}
@@ -1268,7 +1329,7 @@
                             <label class="col-lg-3 col-form-label">Office/Mobile No</label>
                             <div class="col-lg-6">
                                 <input type="text" wire:model="applicant_father_details_mobile_number"
-                                    class="form-control" placeholder="03123456789"  />
+                                    class="form-control" placeholder="0312-3456789"  />
                                     <span class="text-danger">
                                         @error('applicant_father_details_mobile_number')
                                         {{ str_replace("The applicant father details mobile number field", 'Mobile number', $message) }}
@@ -1407,6 +1468,15 @@
             <h3 class="card-title">
                 7. Family Monthly Income
             </h3>
+            {{-- If there is no record entered in form and next is pressed then this will be shown avlue setted from increaseStep function --}}
+            @if (session()->has('alert'))
+                <div class="alert alert-danger" style="height: 50px!important; margin-top: 10px;">
+                    <p>
+                        {{ session('alert') }}
+                    </p>
+                </div>
+            @endif
+
         </div>
         <div class="card-body">
             <div class="card">
@@ -1654,7 +1724,9 @@
             <div class="card">
             <div class="card-body">
 
-                <h4 class="font-size-lg text-dark font-weight-bold mb-20">Provide the monthly income details for the selected income type/asset and the income to each entity mentioned.</h4>
+                <h4 class="font-size-lg text-dark font-weight-bold">Is there any monthly income from assets? If yes then fill this form otherwise skip & continue!</h4> <br>
+
+                <h4 class="font-size-lg text-dark font-weight-bold mb-20"><i>Provide the monthly income details for the selected income type/asset and the income to each entity mentioned.</i></h4>
 
                 <div class="mb-15">
                     
@@ -2290,6 +2362,8 @@
         <div class="card-body">
             <div class="card-body">
 
+                <h4 class="font-size-lg text-dark font-weight-bold mb-20">Please fill in the other accomodation expense amount.</h4>
+
                 <div class="mb-15">
                     <div class="row">
                         <div class="col-md-3">
@@ -2454,8 +2528,8 @@
                                     wire:model="applicant_other_accomodation_expenditures_misc"
                                     id="applicant_other_accomodation_expenditures_misc"  />
                                     <span class="text-danger">
-                                        @error('applicant_other_accomodation_expenditures_telephone')
-                                            {{ str_replace("applicant other accomodation expenditures telephone", 'telephone expense', $message) }}
+                                        @error('applicant_other_accomodation_expenditures_misc')
+                                            {{ str_replace("applicant other accomodation expenditures misc", 'miscellaneous expense', $message) }}
                                         @enderror
                                     </span>
                             </div>
@@ -2606,6 +2680,7 @@
                                             <div class="form-group mb-10">
                                                 <input 
                                                     type="text"
+                                                    placeholder="2014"
                                                     class="form-control @error('applicant_other_assets.' . $loop->index . '.model_no') @enderror"
                                                     wire:model="applicant_other_assets.{{ $loop->index }}.model_no"
                                                     wire:key="applicant-other-assets-model-no-{{ $loop->index }}" />
@@ -2623,6 +2698,7 @@
                                             <div class="form-group mb-10">
                                                 <input 
                                                 type="text"
+                                                placeholder="900cc"
                                                     class="form-control @error('applicant_other_assets.' . $loop->index . '.engine_capacity') @enderror"
                                                     wire:model="applicant_other_assets.{{ $loop->index }}.engine_capacity"
                                                     wire:key="applicant-other-assets-engine-capacity-{{ $loop->index }}" />
@@ -2640,6 +2716,7 @@
                                             <div class="form-group mb-10">
                                                 <input 
                                                     type="text"
+                                                    placeholder="ABC-123"
                                                     class="form-control @error('applicant_other_assets.' . $loop->index . '.reg_no') @enderror"
                                                     wire:model="applicant_other_assets.{{ $loop->index }}.reg_no"
                                                     wire:key="applicant-other-assets-reg-no-{{ $loop->index }}" />
@@ -2657,6 +2734,7 @@
                                             <div class="form-group mb-10">
                                                 <input 
                                                     type="text"
+                                                    placeholder="5 years"
                                                     class="form-control @error('applicant_other_assets.' . $loop->index . '.ownership_period') @enderror"
                                                     wire:model="applicant_other_assets.{{ $loop->index }}.ownership_period"
                                                     wire:key="applicant-other-assets-ownership-period-{{ $loop->index }}" />
@@ -3157,7 +3235,7 @@
 
                 <h4 class="font-size-lg text-dark font-weight-bold mb-20">
                     Does the family own any transport? If yes then fill this form otherwise skip & continue! <br> <br>
-                    <i>Provide the asset details for the selected asset and the share of each entity mentioned.</i></h4>
+                    <i>Provide the asset details for the selected asset.</i></h4>
 
                 <div class="mb-15">
 
@@ -3470,8 +3548,7 @@
             <div class="card">
 
                 <div class="card-body">
-                    <h4 class="font-size-lg text-dark font-weight-bold mb-20">If yes? Fill the relevant
-                        details otherwise skip & continue!</h4>
+                    <h4 class="font-size-lg text-dark font-weight-bold mb-20">Have you taken any loan for education? If yes, Fill the relevant details otherwise skip & continue!</h4>
 
                     <div class="mb-15">
                         <div class="form-group row mb-10">
@@ -3521,6 +3598,14 @@
             <h3 class="card-title">
                15. Applicant Educational Records
             </h3>
+            {{-- If there is no record entered in form and next is pressed then this will be shown avlue setted from increaseStep function --}}
+            @if (session()->has('alert'))
+                <div class="alert alert-danger" style="height: 50px!important; margin-top: 10px;">
+                    <p>
+                        {{ session('alert') }}
+                    </p>
+                </div>
+            @endif
         </div>
         <div class="card-body">
             <div class="card">
@@ -3892,7 +3977,7 @@
             {{-- Show only if all the three reasons are empty --}}
             @if(empty($applicant_other_scholarships_institution_name) && empty($applicant_other_scholarships_name) && empty($applicant_other_scholarships_total_amount) && empty($applicant_other_scholarships_total_period) && empty($applicant_other_scholarships_class_level_granted) && empty($applicant_other_scholarships_purpose))
             <div class="card-toolbar">
-                <button wire:click="skipStep()" type="submit" class="btn btn-sm btn-light" onclick="return confirm('Are you sure you want to submit form?')">
+                <button onclick="return confirm('Are you sure you want to submit form?') || event.stopImmediatePropagation()" wire:click="skipStep()" class="btn btn-sm btn-light">
                     Skip & Continue
                 </button>
             </div>
@@ -4039,28 +4124,94 @@
                 $currentStep == 13 ||
                 $currentStep == 14 ||
                 $currentStep == 15)
-            <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next from {{$this->currentStep}}</button>
-        @endif
+                {{-- <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next from {{$this->currentStep}}</button> --}}
 
-        @if ($currentStep == 16)
-            <div style="text-align: right"></div>
+                {{-- If on 5th step form now --}}
+                @if($currentStep==5)
+                
+                    {{-- New row is present in the form then show next --}}
+                    @if(!empty($applicant_family_members_currently_studying))
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next</button>
+                    @else
+                        {{-- Not show next button i.e. hidden --}}
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()" style="visibility: hidden;">Next</button>
+                    @endif
+                    
+                {{-- Not 5th step form--}}
+
+                {{-- If on 8th step form now --}}
+                @elseif($currentStep==8)
+                    {{-- New row is present in the form then show next --}}
+                    @if(!empty($applicant_asset_monthly_incomes))
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next</button>
+                    @else
+                        {{-- Not show next button i.e. hidden --}}
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()" style="visibility: hidden;">Next</button>
+                    @endif
+
+                {{-- Not 8th step form--}}
+                
+                {{-- If on 11th step form now --}}
+                @elseif($currentStep==11)
+                    {{-- New row is present in the form then show next --}}
+                    @if(!empty($applicant_other_assets))
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next</button>
+                    @else
+                        {{-- Not show next button i.e. hidden --}}
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()" style="visibility: hidden;">Next</button>
+                    @endif
+
+                {{-- Not 11th step form--}}
+
+                {{-- If on 12th step form now --}}
+                @elseif($currentStep==12)
+                    {{-- New row is present in the form then show next --}}
+                    @if(!empty($applicant_owned_plots))
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next</button>
+                    @else
+                        {{-- Not show next button i.e. hidden --}}
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()" style="visibility: hidden;">Next</button>
+                    @endif
+
+                {{-- Not 12th step form--}}
+
+                {{-- If on 13th step form now --}}
+                @elseif($currentStep==13)
+                    {{-- New row is present in the form then show next --}}
+                    @if(!empty($applicant_worth_assets))
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next</button>
+                    @else
+                        {{-- Not show next button i.e. hidden --}}
+                        <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()" style="visibility: hidden;">Next</button>
+                    @endif
+
+                {{-- Not 13th step form--}}
+                @else
+                    <button type="button" class="btn btn-md btn-success" wire:click="increaseStep()">Next</button>
+                @endif
+            
+            @endif
+
+
+            @if ($currentStep == 16)
+                <div style="text-align: right"></div>
             {{-- <button type="submit" wire:click.prevent="submitForm({{$this->ID}})" class="btn btn-md btn-primary">Submit</button>  --}}
             {{-- <button type="submit" wire:click.prevent="submitForm" class="btn btn-md btn-primary">Submit</button>  --}}
             {{-- <button wire:click="increaseStep" class="btn btn-md btn-primary">Submit</button>  --}}
             {{-- <button onclick="confirmAndIncreaseStep();" class="btn btn-md btn-primary">Submit</button>  --}}
             {{-- <button type="submit" wire:click.prevent="confirmAndIncreaseStep" class="btn btn-md btn-primary">Submit</button> --}}
             {{-- <button id="submitButton" type="submit" wire:click.prevent="increaseStep" class="btn btn-md btn-primary">Submit</button> --}}
-            <button type="submit" wire:click.prevent="increaseStep" class="btn btn-md btn-primary">Submit</button>
+            <button onclick="return confirm('Are you sure you want to submit the form?') || event.stopImmediatePropagation()" wire:click="increaseStep" class="btn btn-md btn-primary">Submit</button>
             {{-- <button type="submit" onclick="return confirm('Are you sure you want to submit form?')" class="btn btn-md btn-primary">Submit</button> --}}
             {{-- After submitting validate the current form and show a screen where all the fields data is shown --}}
             {{-- onclick="confirmAndIncreaseStep()" --}}
-        @endif
+            @endif
     </div>
 </div>
 </div>
 
 
-</form>
+{{-- </form> --}}
 
 
 </div>

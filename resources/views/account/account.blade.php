@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SMS - My Account</title>
+    <title>ScholarApplica - My Account</title>
     <link rel="shortcut icon" href="{{asset('Eziline/Scholarship Management System/public/favicon.ico')}}" />
     <link href="{{asset('Eziline/Scholarship Management System/public/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 
@@ -87,10 +87,12 @@
             </nav>
             <!-- /Breadcrumb -->
             <form method="POST" action="{{route('update-profile')}}" enctype="multipart/form-data">
-            
-            <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-                    <div class="card" style="height: 301px !important;">
+                
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                    {{-- Is there is subscription record for user --}}
+                    @if($anySubcription)
+                    <div class="card" style="height: 371px !important;">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 @if($base64Image==NULL)
@@ -104,6 +106,53 @@
                                     <h4>{{Auth::user()->name}}</h4>
                                 </div>
                             </div>
+                            <hr>
+                            {{-- Is there is subscription record for user --}}
+                            {{-- @if($anySubcription) --}}
+                            <div class="mt-3">
+                                <h4>
+                                    Subscription details: 
+                                    {{-- (Current/Past) --}}
+                                </h4>
+                                <br>
+                                <p>
+                                    <b>Duration:</b>&nbsp;{{$subscriptionStartDate}} <b>-</b> {{$subscriptionExpiryDate}}</p>
+                                @if($subscriptionStatus == "Active")
+                                <p>
+                                    <b>Status:</b>&nbsp; 
+                                    <span style="color:green!important;">{{$subscriptionStatus}}</span>
+                                </p>
+                                @else
+                                <p><b>Status:</b>&nbsp; <span style="color:red!important;">{{$subscriptionStatus}}</span></p>
+                                @endif
+                            </div>
+                            <hr>
+                            {{-- @endif --}}
+
+                            @else
+
+                            <div class="card" style="height: 301px !important;">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        @if($base64Image==NULL)
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User"
+                                            class="rounded-circle" width="150">
+                                        @else
+                                            <!-- Display the image -->
+                                            <img src="{{ 'data:image/png;base64,' . $base64Image }}" alt="Image" name="userImage" width="150" height="150px" style="border-radius:47%;">
+                                            @endif
+                                        <div class="mt-3">
+                                            <h4>{{Auth::user()->name}}</h4>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mt-3">
+                                        <p class="text-center fs-12">
+                                             No subscription details found!
+                                        </p>
+                                    </div>
+                                    <hr>
+                            @endif
                         </div>
                     </div>
                     {{-- <div class="card mt-3">
@@ -173,7 +222,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mt-5">Profile image</h6>
+                                    <h6 class="mt-5">Profile picture</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary mt-5">
                                     <input type="file" name="userImage" id="">
@@ -201,7 +250,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-info " onclick="return confirm('Are you sure?')" type="submit">Edit</button>
+                                        <button class="btn btn-info " onclick="return confirm('Are you sure you want to update your profile?')" type="submit">Update</button>
                                     </div>
                                 </div>
                             </form>
@@ -299,33 +348,61 @@
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3 material-icons mr-2">Name: {{$appliedScholarship->scholarship_name}}</h6>
-                                    <h6 class="d-flex align-items-center mb-3 material-icons mr-2">Date applied: {{$appliedScholarship->created_at}}</h6>
+                                    <h6 class="d-flex align-items-center mb-3 material-icons mr-2 fw-normal">
+                                        <b>Name:&nbsp;</b> {{$appliedScholarship->scholarship_name}}
+                                    </h6>
+                                    @php
+                                        // {{-- removing time from data and correcting the format --}}
+                                        $date = $appliedScholarship->created_at;
+
+                                        $createDate = new DateTime($date);
+
+                                        $strippedDate = $createDate->format('d-m-Y h:ma');
+
+                                        $appliedDate = $strippedDate;
+                                    @endphp
+                                    <h6 class="d-flex align-items-center mb-3 material-icons mr-2 fw-normal">
+                                        <b>Date applied:&nbsp;</b> {{$appliedDate}}</h6>
+                                        
                                         @if($appliedScholarship->applied_scholarships_status == "Submitted")
-                                        <h6 style="color: #25a3f5!important"  class="d-flex align-items-center mb-3 material-icons mr-2">
-                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}
+
+                                        <h6 style="color: #25a3f5!important" class="d-flex align-items-center mb-3 material-icons mr-2">
+                                        <span style="color:black!important;">Status:&nbsp;</span>  
+                                        {{$appliedScholarship->applied_scholarships_status}}
                                         </h6>
 
                                         @elseif($appliedScholarship->applied_scholarships_status == "Verified")
+
                                         <h6 style="color: #2bcb43!important" class="d-flex align-items-center mb-3 material-icons mr-2">
-                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}</h6>
+                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}
+                                        </h6>
 
                                         @elseif($appliedScholarship->applied_scholarships_status == "Disapproved")
+
                                         <h6 style="color: #ef1a64!important"  class="d-flex align-items-center mb-3 material-icons mr-2">
-                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}</h6>
+                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}
+                                        </h6>
 
                                         @elseif($appliedScholarship->applied_scholarships_status == "Selected")
+
                                         <h6 style="color: #c916a3!important"  class="d-flex align-items-center mb-3 material-icons mr-2">
-                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}</h6>
+                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}
+                                        </h6>
 
                                         @elseif($appliedScholarship->applied_scholarships_status == "Not Selected")
+
                                         <h6 style="color: #efbb1a!important"  class="d-flex align-items-center mb-3 material-icons mr-2">
-                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}</h6>
+                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}
+                                        </h6>
 
                                         @elseif($appliedScholarship->applied_scholarships_status == "Scholarship granted")
+
                                         <h6 style="color: #2bcb43!important"  class="d-flex align-items-center mb-3 material-icons mr-2">
-                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}</h6>
-                                        @endif                                    
+                                        <span style="color:black!important;">Status:&nbsp;</span>  {{$appliedScholarship->applied_scholarships_status}}
+                                        </h6>
+
+                                        @endif           
+
                                         {{-- Status: {{$application->applied_scholarships_status}} --}}
                                 </div>
                             </div>
@@ -335,7 +412,7 @@
                     </div>
 
                     @if($count==0)
-                    <div class="col-sm-8 mb-3">
+                    <div class="col-sm-12 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3 material-icons mr-2">

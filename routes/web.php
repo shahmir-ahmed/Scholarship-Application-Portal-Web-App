@@ -78,18 +78,18 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 // Mail route
 // Route::post('send-mail', [MailController::class, 'index'])->name('send-mail');
 
-// stripe routes
+// Stripe Payment routes
 Route::post('checkout', ['App\Http\Controllers\StripeController', 'checkout'])->name('checkout')->middleware(['auth']);
-Route::post('session', 'App\Http\Controllers\StripeController@session')->name('session')->middleware(['auth']);
+// Route::post('session', 'App\Http\Controllers\StripeController@session')->name('session')->middleware(['auth']);
 Route::get('success', 'App\Http\Controllers\StripeController@success')->name('success')->middleware(['auth']);
 
-// user profile page
+// User profile page route
 Route::get('profile',  ['App\Http\Controllers\ProfileController', 'showProfile'])->name('profile')->middleware(["auth"]);
 // Route::get('profile', function(){
 //     return view('account.account');
 // })->name('profile')->middleware(["auth"]);
 
-// user account profile update
+// User account profile update route
 Route::post('/update-profile', ['App\Http\Controllers\ProfileController', 'updateProfile'])->name('update-profile')->middleware(['auth']);
 
 // user account page
@@ -100,7 +100,7 @@ Route::post('/update-profile', ['App\Http\Controllers\ProfileController', 'updat
 // Scholarships webpage route
 // Route::get('scholarships', [App\Http\Controllers\ScholarshipsController::class, 'viewAll'])->name('scholarships');
 
-// view a specific scholarship
+// User view a specific scholarship details route
 Route::get('scholarship/{scholarshipId}/view', [App\Http\Controllers\ScholarshipsController::class, 'view'])->name('scholarship.view')->middleware(['auth']);
 
 // show personal details form
@@ -125,7 +125,7 @@ Route::get('scholarship/{scholarship}/apply/family_member', [App\Http\Controller
 Route::post('scholarship/{scholarship}/store/family_member', [App\Http\Controllers\ApplicationsController::class, 'storeFamilyMemberDetails'])->name('application.storeFamilyMemberDetails')->middleware('auth');
 */
 
-
+/* Livewire MultiStep Form */
 // Route to show application form
 // Route::view('/scholarship/{scholarshipId}/apply', 'user.scholaship.application')->name('scholarship.apply');
 Route::get('scholarship/{scholarshipId}/apply', [App\Http\Livewire\MultiStepForm::class, 'apply'])->name('scholarship.apply')->middleware(["auth"]);
@@ -135,24 +135,30 @@ Route::get('scholarship/{scholarshipId}/apply', [App\Http\Livewire\MultiStepForm
 // Route::post('scholarship/{scholarshipId}/submit', [App\Http\Livewire\MultiStepForm::class, 'submitForm'])->name('application.submit')->middleware(["auth"]); // handled by livewire wire:click.prevent attribute which 
 
 
-//  admin manage subscriptions route
+// Subscriptions management route
 Route::resource('admin/subscriptions', App\Http\Controllers\SubscriptionsController::class);
 
 // Update user profile
 // Route::post('profile/update', App\Http\Controllers\ProfileController::class, 'updateProfile')->name('profile.update');
 
-// admin manage applications route
+/* Admin manage applications route */
 
+// Show all applications
 Route::get('admin/applications', [App\Http\Controllers\AppliedScholarshipController::class, 'index'])->name('applications.index');
 
-// Show application details
+// Show specific application details
 Route::get('admin/applications/show/a/{applicationId}/u/{userId}/s/{scholarshipId}', [App\Http\Controllers\AppliedScholarshipController::class, 'show'])->name('applications.show');
 
 // Delete application and all the info route
 Route::post('admin/applications/destroy/a/{applicationId}/u/{userId}/s/{scholarshipId}', [App\Http\Controllers\AppliedScholarshipController::class, 'destroy'])->name('applications.destroy');
 
-// edit application status route
+// Edit application status route
 Route::get('admin/applications/edit/a/{applicationId}', [App\Http\Controllers\AppliedScholarshipController::class, 'edit'])->name('applications.edit');
 
 // Update application status route
 Route::post('admin/applications/update/a/{applicationId}', [App\Http\Controllers\AppliedScholarshipController::class, 'update'])->name('applications.update');
+
+// Users management route
+Route::resource('admin/users', App\Http\Controllers\UserController::class);
+
+/* END OF ROUTES */
