@@ -34,16 +34,13 @@
     username: shehryara17@gmail.com
     password: 12345678
     
-## Running the project
+## Running the project ##
 - Download the zip file by clicking on source code then download zip file button on th top-right of github repo .
 - After downlaod has completed move the project to [Your drive]/ampp/htdocs folder.
 - Extract the zip folder here.
-
-### Importing Database ###
 - Run the xampp/wamp server.
 - Create a database scholarship-managment-system in the server.
 - Import \*scholarship-managment-system(7).sql from public folder of project, if all the steps are completed then database will be imported.
-
 - Now copy the url of webiste from the user credentials section above and paste in the browser URL address bar.
 - Now press enter and wait for the website to load.
 - Now the project is fully setup and running.
