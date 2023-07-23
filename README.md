@@ -3,6 +3,9 @@
 
  <br>
 
+ ## Project UI Images
+![alt text](https://github.com/shahmir-ahmed/Scholarship-Application-Portal-Web-App/blob/main/public/SMS%20All%20ss.png?raw=true)
+
 ## Technologies used:  ##
 - HTML5
 - CSS3
@@ -31,17 +34,19 @@
     username: shehryara17@gmail.com
     password: 12345678
     
+## Running the project
+- Download the zip file by clicking on source code then download zip file button on th top-right of github repo .
+- After downlaod has completed move the project to [Your drive]/ampp/htdocs folder.
+- Extract the zip folder here.
 
-## Project UI Images
-![alt text](https://github.com/shahmir-ahmed/Scholarship-Application-Portal-Web-App/blob/main/public/SMS%20All%20ss.png?raw=true)
-
-
-## Database
-MySQL is used as database. Database design is made easy to understand.
-## Importing Database
-- Create a database attendance-system
+### Importing Database ###
+- Run the xampp/wamp server.
+- Create a database scholarship-managment-system in the server.
 - Import \*scholarship-managment-system(7).sql from public folder of project, if all the steps are completed then database will be imported.
 
+- Now copy the url of webiste from the user credentials section above and paste in the browser URL address bar.
+- Now press enter and wait for the website to load.
+- Now the project is fully setup and running.
 
 ## Tables
 
