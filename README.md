@@ -18,11 +18,13 @@
   - XAMPP or WAMP server for localhost. 
 
 
-  ### Admin credential
+## Admin credentials
+    url: http://localhost/Eziline/Scholarship%20Management%20System/public/admin/
     username: preigner@example.org
     password: password
     
-  ### User credentials
+## User credentials
+    url: http://localhost/Eziline/Scholarship%20Management%20System/public/
     username: ahmed1212514@gmail.com
     password: 12345678
     
@@ -42,11 +44,32 @@ MySQL is used as database. Database design is made easy to understand.
 
 
 ## Tables
-- admin-login
-- student-login
-- students
-- attendance
-- leaves
+
+- admins
+- applicant_asset_monthly_incomes
+- applicant_education_records
+- applicant_employment_details
+- applicant_family_accomodation_expenditures
+- applicant_family_members
+- applicant_family_member_currently_studying_details
+- applicant_family_member_earnings
+- applicant_family_monthly_incomes
+- applicant_father_details
+- applicant_loans
+- applicant_other_accomodation_expenditures
+- applicant_other_assets
+- applicant_other_family_expenditures
+- applicant_other_scholarships
+- applicant_owned_plots
+- applicant_personal_details
+- applicant_siblings
+- applicant_worth_assets
+- applied_scholarships
+- events
+- news
+- scholarships
+- subscriptions
+- users
 
 ## Show your support
 Give a ⭐️ if you like this project!
