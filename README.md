@@ -1,12 +1,58 @@
 # Scholarship-Application-Portal-Web-App
  A comprehensive scholarship application portal on which students can seamlessly apply for scholarships and pursue educational opportunities effortlessly, while providing administrators full control over the backend operations. Don't forget to give a ⭐️ if you like this project! 😀
  
-<hr>
+<br>
+
+## Technologies used:  ##
+- HTML5
+- CSS3
+- Bootstrap
+- Javascript
+- PHP (Laravel)
+- MySQL.
+
+
+## Requirements ##
+  - PHP 5.3 or higher.
+  - MySQL 5.6 or higher for spatial features in MySQL.
+  - XAMPP or WAMP server for localhost. 
+
+
+  ### Admin credential
+    `username: preigner@example.org
+    password: password`
+    
+  ### User credentials
+  ` username: ahmed1212514@gmail.com
+    password: 12345678 `
+    
+  ` username: shehryara17@gmail.com
+    password: 12345678 `
+    
 
 ## Project UI Images
 ![alt text](https://github.com/shahmir-ahmed/Scholarship-Application-Portal-Web-App/blob/main/public/SMS%20All%20ss.png?raw=true)
 
-<hr>
+
+## Database
+MySQL is used as database. Database design is made easy to understand.
+## Importing Database
+- Create a database attendance-system
+- Import \*scholarship-managment-system(7).sql from public folder of project, if all the steps are completed then database will be imported.
+
+
+## Tables
+- admin-login
+- student-login
+- students
+- attendance
+- leaves
+
+## Show your support
+Give a ⭐️ if you like this project!
+
+
+<br>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
