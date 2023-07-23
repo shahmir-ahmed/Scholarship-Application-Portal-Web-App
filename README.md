@@ -19,12 +19,12 @@
 
 
 ## Admin credentials
-    url: http://localhost/Eziline/Scholarship%20Management%20System/public/admin/
+    url: http://localhost/Scholarship%20Management%20System/public/admin/
     username: preigner@example.org
     password: password
     
 ## User credentials
-    url: http://localhost/Eziline/Scholarship%20Management%20System/public/
+    url: http://localhost/Scholarship%20Management%20System/public/
     username: ahmed1212514@gmail.com
     password: 12345678
     
