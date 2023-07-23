@@ -19,15 +19,15 @@
 
 
   ### Admin credential
-    `username: preigner@example.org
-    password: password`
+    username: `preigner@example.org`
+    password: `password`
     
   ### User credentials
-  ` username: ahmed1212514@gmail.com
-    password: 12345678 `
+    username: `ahmed1212514@gmail.com`
+    password: `12345678`
     
-  ` username: shehryara17@gmail.com
-    password: 12345678 `
+    username: `shehryara17@gmail.com`
+    password: `12345678`
     
 
 ## Project UI Images
