@@ -2149,7 +2149,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             <a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
                                                         </li> --}}
                                                         <li class="menu-item fw-bold fs-12">
-                                                            <a href="https://github.com/shahmir-ahmed" target="_blank" class="menu-link px-2" style="color: orange"> <span style="color:black!important">𝙷𝚊𝚗𝚍 𝙲𝚛𝚊𝚏𝚝𝚎𝚍 & 𝙼𝚊𝚍𝚎 𝚆𝚒𝚝𝚑 ❤️ 𝚋𝚢 &nbsp;</span> 𝚂𝚑𝚊𝚑𝚖𝚒𝚛 𝙰𝚑𝚖𝚎𝚍</a>
+                                                            <span style="color:black!important">𝙷𝚊𝚗𝚍 𝙲𝚛𝚊𝚏𝚝𝚎𝚍 & 𝙼𝚊𝚍𝚎 𝚆𝚒𝚝𝚑 ❤️ 𝚋𝚢</span><a href="https://github.com/shahmir-ahmed" target="_blank" class="d-inline menu-link px-2" style="color: orange">𝚂𝚑𝚊𝚑𝚖𝚒𝚛 𝙰𝚑𝚖𝚎𝚍</a>
                                                         </li>
                                                     </ul>
                                                     <!--end::Menu-->

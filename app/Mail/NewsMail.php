@@ -30,7 +30,7 @@ class NewsMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'News Mail',
+            subject: 'New News Uploaded',
         );
     }
 

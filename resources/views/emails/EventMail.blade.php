@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>New Event Mail from SMS</title>
+    <title>New Event Mail from ScholarApplica</title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -349,11 +349,11 @@
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <h1>{{$mailData['title']}}</h1>
+                        {{-- <h1>{{$mailData['title']}}</h1> --}}
                         <h3>{{$mailData['body']}}</h3>
-                        <p>
-
-                          Exciting news! We've just uploaded details of a new event to our website. Join us on {{$mailData['eventDate']}} at {{$mailData['eventTime']}} at {{$mailData['eventLocation']}} for an unforgettable experience. Learn more at the link below. Don't miss out!</p>
+                        <p>Exciting news! We've just uploaded details of a new event to our website. Join us on {{$mailData['eventDate']}} at {{$mailData['eventTime']}} at {{$mailData['eventLocation']}} for an unforgettable experience. 
+                          <br> <br>
+                          Learn more at the link below. Don't miss out!</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
@@ -384,7 +384,7 @@
               <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">SMS Inc, 3 Abbey Road, San Francisco CA 94102</span>
+                    <span class="apple-link">ScholarApplica Inc, 3 Abbey Road, San Francisco CA 94102</span>
                     {{-- <br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>. --}}
                   </td>
                 </tr>

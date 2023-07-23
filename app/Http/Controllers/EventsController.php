@@ -13,6 +13,8 @@ use Mail;
 
 use App\Mail\EventMail;
 
+use Carbon\Carbon;
+
 class EventsController extends Controller
 {
     /**
@@ -107,6 +109,13 @@ class EventsController extends Controller
                         $userEmail = $details->email;
 
                     }
+
+                    // changing date format in email
+                    $date = new Carbon($request->eventDate);
+
+                    $formattedDate = $date->format('d-M-Y');
+
+                    $eventDate = $formattedDate;
                     
                     // preparing mail
                     $body = "Hello ".$userName."!";
@@ -114,7 +123,7 @@ class EventsController extends Controller
                     $mailData = [
                         'title' => 'Subject: New Event Alert!',
                         'body' => $body,
-                        'eventDate' => $request->eventDate,
+                        'eventDate' => $eventDate,
                         'eventTime' => $request->eventTime,
                         'eventLocation' => $request->eventLocation,
                     ];

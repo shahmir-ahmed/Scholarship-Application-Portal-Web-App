@@ -10,6 +10,13 @@ use Illuminate\Http\Response;
 use Session;
 
 use Auth;
+use App\Models\Subscription;
+use App\Models\User;
+
+// for mailing
+use Mail;
+use App\Mail\ScholarshipMail;
+use Carbon\Carbon;
 
 class ScholarshipsController extends Controller
 {
@@ -33,7 +40,8 @@ class ScholarshipsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Sh
+     * ow the form for creating a new resource.
      */
     public function create()
     {
@@ -62,6 +70,75 @@ class ScholarshipsController extends Controller
             'scholarship_eligibility_criteria' => $request->scholarshipEligibilityCriteria,
             'scholarship_last_date' => $request->scholarshipDueDate,
         ]);
+
+        // send email to subscribed users using smtp of new scholarship
+
+        $subscribedUsers = Subscription::all();
+
+        $datediff = NULL;
+
+        $date = NULL;
+
+        // var_dump($subscriptionDate);
+
+        $now = time(); // today time
+
+        // for every subscribed user
+        foreach($subscribedUsers as $data){
+
+            $date = $data->created_at;
+
+            // if there is data in subscription table
+            if($date!=NULL){
+
+                $your_date = strtotime($date);
+    
+                $datediff = $now - $your_date;
+                        
+                $rounded = round($datediff / (60 * 60 * 24));
+
+                // user subscription is not old
+                if($rounded<30){
+
+                    // getting user id to find the subscribed user
+                    $userId = $data->subscription_user_id;
+    
+                    $user = User::where('id', $userId)->get();
+
+                    foreach($user as $details){
+                        
+                        $userName = $details->name;
+
+                        $userEmail = $details->email;
+
+                    }
+
+                    // changing date format in email
+                    $date = new Carbon($request->scholarshipDueDate);
+
+                    $formattedDate = $date->format('d-M-Y');
+
+                    $scholarshipDeadline = $formattedDate;
+                    
+                    
+                    // preparing mail
+                    $body = "Hello ".$userName."!";
+        
+                    $mailData = [
+                        'title' => 'Subject: New Scholarship Alert!',
+                        'body' => $body,
+                        'scholarshipName' => $request->scholarshipName,
+                        'scholarshipDeadline' => $scholarshipDeadline,
+                    ];
+        
+                    Mail::to($userEmail)->send(new ScholarshipMail($mailData));
+
+                }
+                
+            }
+
+            
+        }
 
         return redirect()->route('scholarships.index');
     }
